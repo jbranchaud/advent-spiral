@@ -120,3 +120,28 @@
     flex-direction: column;
   }
 }
+
+.gradient-background {
+  color: inherit;
+  background-image:
+    linear-gradient(120deg, hsl(246.06,71.24%,30%) 12%, hsl(259.66,90.63%,12.55%) 65%);
+  height: 100%;
+}
+
+.spectrum-background {
+  background:
+    linear-gradient(red, transparent),
+    linear-gradient(to top left, lime, transparent),
+    linear-gradient(to top right, blue, transparent);
+  background-blend-mode: screen;
+}
+
+.spiralBox {
+  resize: both;
+  width: 100vw;
+  height: 100vw;
+  max-width: 1000px;
+  max-height: 1000px;
+  background-image: url(/stir-up-swirl.svg);
+  background-size: cover;
+}

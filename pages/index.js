@@ -1,17 +1,18 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import cx from "classnames"
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div className={styles.container, styles['gradient-background']}>
       <Head>
-        <title>Create Next App</title>
+        <title>Advent with St. Luke's of Logan Square</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        <h1 className={styles.title, "text-6xl font-bold text-gray-100"}>
+          Advent 2020
         </h1>
 
         <p className={styles.description}>
