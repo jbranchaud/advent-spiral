@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import SvgStar from "../components/SvgStar.jsx";
+import StarBox from "../components/StarBox.jsx";
 
 export default function Swirl() {
   return (
@@ -15,7 +16,7 @@ export default function Swirl() {
           Advent 2020
         </h1>
         <div className={styles.spiralBox}>
-          <SvgStar />
+          <StarBox className={styles.starBox} />
         </div>
       </main>
     </div>

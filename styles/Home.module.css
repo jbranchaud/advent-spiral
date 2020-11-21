@@ -144,4 +144,11 @@
   max-height: 1000px;
   background-image: url(/stir-up-swirl.svg);
   background-size: cover;
+  position: relative;
+}
+
+.starBox {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
