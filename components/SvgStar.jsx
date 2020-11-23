@@ -1,15 +1,55 @@
-import * as React from "react";
+import React, { useEffect } from "react";
+import useHover from "../src/hooks/useHover.js";
 
-function SvgSmallStar(props) {
+function SvgSmallStar({ position, currentPosition, highlight, x, y, ...rest }) {
+  const deemphasisProps = highlight
+    ? {}
+    : {
+        filter: "url(#monochrome)",
+        transform: "translate(10,5) scale(0.7,0.7)",
+      };
+
+  const isInteractive = position <= currentPosition;
+
+  const otherGProps = isInteractive ? {} : { opacity: "0.3" };
+
+  const [hoverRef, isHovered] = useHover();
+
+  useEffect(() => {
+    if (isHovered) {
+      console.log("You are hovered right now!");
+    } else {
+      console.log("You are NOT hovered right now!");
+    }
+  }, [isHovered]);
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width={50}
-      height={50}
+      width={isInteractive && isHovered ? 70 : 50}
+      height={isInteractive && isHovered ? 70 : 50}
+      x={isInteractive && isHovered ? x - 10 : x}
+      y={isInteractive && isHovered ? y - 10 : y}
       viewBox="0 0 37.5 37.5"
-      {...props}
+      {...rest}
     >
+      <filter
+        id="monochrome"
+        color-interpolation-filters="sRGB"
+        x="0"
+        y="0"
+        height="100%"
+        width="100%"
+      >
+        <feColorMatrix
+          type="matrix"
+          values="0.95 0 0 0 0.05 
+                      0.85 0 0 0 0.15  
+                      0.50 0 0 0 0.50 
+                      0    0 0 1 0"
+        />
+      </filter>
       <defs>
         <image
           id="small-star_svg__a"
@@ -30,8 +70,13 @@ function SvgSmallStar(props) {
           <use xlinkHref="#small-star_svg__a" />
         </mask>
       </defs>
-      <g clipPath="url(#small-star_svg__b)">
+      <g
+        {...otherGProps}
+        {...deemphasisProps}
+        clipPath="url(#small-star_svg__b)"
+      >
         <use
+          ref={hoverRef}
           xlinkHref="#small-star_svg__c"
           mask="url(#small-star_svg__d)"
           transform="matrix(.08333 0 0 .08315 0 -.14)"
@@ -42,4 +87,3 @@ function SvgSmallStar(props) {
 }
 
 export default SvgSmallStar;
-

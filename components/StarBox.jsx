@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import SvgStar from "./SvgStar.jsx";
 
 // the number of days, which is the number of stars
@@ -30,8 +30,8 @@ const starPositions = [
   { position: 5, x: 630, y: 910 },
   { position: 4, x: 440, y: 940 },
   { position: 3, x: 225, y: 870 },
-  { position: 2, x: 90, y: 725 },
-  { position: 1, x: 25, y: 530 },
+  { position: 2, x: 75, y: 725 },
+  { position: 1, x: 5, y: 530 },
 ];
 
 function StarBox(props) {
@@ -40,6 +40,8 @@ function StarBox(props) {
     console.log(message);
   }
 
+  const currentPosition = 20;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -47,8 +49,19 @@ function StarBox(props) {
       viewBox="0 0 1000 1000"
       {...props}
     >
-      {starPositions.map(({ x, y }) => {
-        return <SvgStar x={x} y={y} />;
+      {starPositions.map(({ position, x, y }) => {
+        return (
+          <SvgStar
+            onClick={() => {
+              console.log(`Clicking on Star #${position}`);
+            }}
+            x={x}
+            y={y}
+            position={position}
+            highlight={position === currentPosition}
+            currentPosition={currentPosition}
+          />
+        );
       })}
     </svg>
   );
