@@ -35,7 +35,7 @@ const starPositions = [
   { position: 1, x: 5, y: 530 },
 ];
 
-function StarBox(props) {
+function StarBox({ entries, ...rest }) {
   const { setIsHidden, setStarData } = useContext(ModalContext);
 
   if (starPositions.length !== NUMBER_OF_STARS) {
@@ -50,7 +50,7 @@ function StarBox(props) {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 1000 1000"
-      {...props}
+      {...rest}
     >
       {starPositions.map(({ position, x, y }) => {
         return (
@@ -60,7 +60,7 @@ function StarBox(props) {
               if (position > currentPosition) return;
 
               setIsHidden(false);
-              setStarData({ position });
+              setStarData({ position, ...entries[position - 1] });
             }}
             x={x}
             y={y}

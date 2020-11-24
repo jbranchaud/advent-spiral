@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import ModalContext from "../src/context/ModalContext.js";
 import SvgStar from "./SvgStar.jsx";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 function Modal({ isHidden, onDismiss }) {
   const { starData } = useContext(ModalContext);
@@ -8,6 +10,9 @@ function Modal({ isHidden, onDismiss }) {
   if (isHidden) {
     return null;
   }
+
+  const text = starData["Verse/Activity"];
+  const date = starData["Date"];
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto" onClick={onDismiss}>
@@ -59,17 +64,16 @@ Leaving: "ease-in duration-200"
                   className="text-lg leading-6 font-medium text-gray-900"
                   id="modal-headline"
                 >
-                  You click on star #{starData.position}
+                  {Intl.DateTimeFormat("en-US", {
+                    dateStyle: "full",
+                    timeZone: "America/Chicago",
+                  }).format(new Date(`${date}T00:00:00.000-06:00`))}
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    Activity: Attend Online Worship. Today is the first Sunday
-                    of Advent. Prayer of the week: Stir up your power, Lord
-                    Christ, and come. By your merciful protection awaken us to
-                    the threatening dangers of our sins, and keep us blameless
-                    until the coming of your new day, for you live and reign
-                    with the Holy Parent and the Holy Spirit, one God, now and
-                    forever. Amen.
+                    <ReactMarkdown plugin={[]}>
+                      {text.replace(/\n/gi, "  \n")}
+                    </ReactMarkdown>
                   </p>
                 </div>
               </div>

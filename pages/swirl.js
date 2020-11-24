@@ -4,14 +4,36 @@ import styles from "../styles/Home.module.css";
 import StarBox from "../components/StarBox.jsx";
 import Modal from "../components/Modal.jsx";
 import ModalContext from "../src/context/ModalContext.js";
+import Airtable from "airtable";
 
-export default function Swirl() {
+export async function getStaticProps(context) {
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
+    "appyEVF7VFjePfZQW"
+  );
+
+  const records = await base("Table 1")
+    .select({
+      fields: ["Date", "Verse/Activity", "Video"],
+      sort: [{ field: "Date", direction: "asc" }],
+    })
+    .firstPage();
+
+  const entries = records.map((record) => record.fields);
+
+  console.log({ entries });
+
+  return { props: { entries } };
+}
+
+export default function Swirl({ entries }) {
   const { isHidden, setIsHidden, setStarData } = useContext(ModalContext);
 
   const handleModalDismiss = () => {
     setIsHidden(true);
     setStarData({});
   };
+
+  console.log("Component Props: ", entries);
 
   return (
     <div className={(styles.container, styles["gradient-background"])}>
@@ -25,7 +47,7 @@ export default function Swirl() {
           Advent 2020
         </h1>
         <div className={styles.spiralBox}>
-          <StarBox className={styles.starBox} />
+          <StarBox className={styles.starBox} entries={entries} />
           <Modal isHidden={isHidden} onDismiss={handleModalDismiss} />
         </div>
       </main>
