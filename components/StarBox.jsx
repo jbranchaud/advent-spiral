@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import SvgStar from "./SvgStar.jsx";
+import ModalContext from "../src/context/ModalContext.js";
 
 // the number of days, which is the number of stars
 const NUMBER_OF_STARS = 27;
@@ -35,6 +36,8 @@ const starPositions = [
 ];
 
 function StarBox(props) {
+  const { setIsHidden, setStarData } = useContext(ModalContext);
+
   if (starPositions.length !== NUMBER_OF_STARS) {
     const message = `ASTROLOGICAL ERROR: There need to be exactly ${NUMBER_OF_STARS} stars.`;
     console.log(message);
@@ -54,6 +57,10 @@ function StarBox(props) {
           <SvgStar
             onClick={() => {
               console.log(`Clicking on Star #${position}`);
+              if (position > currentPosition) return;
+
+              setIsHidden(false);
+              setStarData({ position });
             }}
             x={x}
             y={y}

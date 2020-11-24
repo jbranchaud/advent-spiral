@@ -1,9 +1,18 @@
+import { useContext } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import SvgStar from "../components/SvgStar.jsx";
 import StarBox from "../components/StarBox.jsx";
+import Modal from "../components/Modal.jsx";
+import ModalContext from "../src/context/ModalContext.js";
 
 export default function Swirl() {
+  const { isHidden, setIsHidden, setStarData } = useContext(ModalContext);
+
+  const handleModalDismiss = () => {
+    setIsHidden(true);
+    setStarData({});
+  };
+
   return (
     <div className={(styles.container, styles["gradient-background"])}>
       <Head>
@@ -17,6 +26,7 @@ export default function Swirl() {
         </h1>
         <div className={styles.spiralBox}>
           <StarBox className={styles.starBox} />
+          <Modal isHidden={isHidden} onDismiss={handleModalDismiss} />
         </div>
       </main>
     </div>
