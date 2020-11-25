@@ -71,7 +71,7 @@ Leaving: "ease-in duration-200"
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    <ReactMarkdown plugin={[]}>
+                    <ReactMarkdown className="markdown-paragraph" plugin={[]}>
                       {text.replace(/\n/gi, "  \n")}
                     </ReactMarkdown>
                   </p>

@@ -19,3 +19,7 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.markdown-paragraph > p {
+  margin-bottom: 20px;
+}
