@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import ModalContext from "../src/context/ModalContext.js";
 import SvgStar from "./SvgStar.jsx";
 import ReactMarkdown from "react-markdown";
-import gfm from "remark-gfm";
 
 function Modal({ isHidden, onDismiss }) {
   const { starData } = useContext(ModalContext);
@@ -71,7 +70,7 @@ Leaving: "ease-in duration-200"
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    <ReactMarkdown className="markdown-paragraph" plugin={[]}>
+                    <ReactMarkdown className="markdown-paragraph">
                       {text.replace(/\n/gi, "  \n")}
                     </ReactMarkdown>
                   </p>
