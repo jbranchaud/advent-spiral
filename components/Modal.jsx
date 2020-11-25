@@ -10,8 +10,10 @@ function Modal({ isHidden, onDismiss }) {
     return null;
   }
 
-  const text = starData["Verse/Activity"];
-  const date = starData["Date"];
+  const text = starData["Verse/Activity"] || "";
+  const date = starData["originalDate"];
+  const dateObj = !!date ? new Date(`${date}T00:00:00.000-06:00`) : Date.now();
+  const videoUrl = starData["Video"];
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto" onClick={onDismiss}>
@@ -57,7 +59,13 @@ Leaving: "ease-in duration-200"
         >
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
-              <SvgStar highlight position={1} currentPosition={1} />
+              <SvgStar
+                highlight
+                position={1}
+                currentPosition={1}
+                entry={{ featured: true }}
+                displayStatic
+              />
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3
                   className="text-lg leading-6 font-medium text-gray-900"
@@ -66,13 +74,23 @@ Leaving: "ease-in duration-200"
                   {Intl.DateTimeFormat("en-US", {
                     dateStyle: "full",
                     timeZone: "America/Chicago",
-                  }).format(new Date(`${date}T00:00:00.000-06:00`))}
+                  }).format(dateObj)}
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
                     <ReactMarkdown className="markdown-paragraph">
                       {text.replace(/\n/gi, "  \n")}
                     </ReactMarkdown>
+                    {videoUrl && (
+                      <iframe
+                        width="560"
+                        height="315"
+                        src={videoUrl}
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    )}
                   </p>
                 </div>
               </div>

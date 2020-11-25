@@ -35,13 +35,37 @@ const starPositions = [
   { position: 1, x: 5, y: 530 },
 ];
 
-function StarBox({ entries, ...rest }) {
+function StarBox({ entries: preformattedEntries, ...rest }) {
   const { setIsHidden, setStarData } = useContext(ModalContext);
 
   if (starPositions.length !== NUMBER_OF_STARS) {
     const message = `ASTROLOGICAL ERROR: There need to be exactly ${NUMBER_OF_STARS} stars.`;
     console.log(message);
   }
+
+  // const today = new Date(Date.now());
+  const today = new Date("2020-12-15");
+
+  const entries = preformattedEntries.map((entry) => {
+    // make the date look like 12/25/2020
+    const entryDate = new Date(entry["Date"]);
+    const formattedDate = new Intl.DateTimeFormat("en-US").format(entryDate);
+
+    // metadata for helping the SVG display
+    const featured = entryDate.getTime() === today.getTime();
+    const inThePast = entryDate < today;
+
+    return {
+      ...entry,
+      originalDate: entry["Date"],
+      dateObj: entryDate,
+      ["Date"]: formattedDate,
+      featured,
+      inThePast,
+    };
+  });
+
+  console.log(entries);
 
   const currentPosition = 20;
 
@@ -53,18 +77,23 @@ function StarBox({ entries, ...rest }) {
       {...rest}
     >
       {starPositions.map(({ position, x, y }) => {
+        const entryForPosition = entries[position - 1];
+        // console.log(position - 1);
+        // console.log(entryForPosition);
         return (
           <SvgStar
             onClick={() => {
               console.log(`Clicking on Star #${position}`);
-              if (position > currentPosition) return;
+              if (!entryForPosition.featured && !entryForPosition.inThePast)
+                return;
 
               setIsHidden(false);
-              setStarData({ position, ...entries[position - 1] });
+              setStarData({ position, ...entryForPosition });
             }}
             x={x}
             y={y}
             position={position}
+            entry={entryForPosition}
             highlight={position === currentPosition}
             currentPosition={currentPosition}
           />

@@ -1,15 +1,25 @@
 import React, { useEffect } from "react";
 import useHover from "../src/hooks/useHover.js";
 
-function SvgSmallStar({ position, currentPosition, highlight, x, y, ...rest }) {
-  const deemphasisProps = highlight
+function SvgSmallStar({
+  position,
+  entry,
+  currentPosition,
+  highlight,
+  x,
+  y,
+  displayStatic,
+  ...rest
+}) {
+  console.log(entry);
+  const deemphasisProps = entry.featured
     ? {}
     : {
         filter: "url(#monochrome)",
         transform: "translate(10,5) scale(0.7,0.7)",
       };
 
-  const isInteractive = position <= currentPosition;
+  const isInteractive = entry.featured || entry.inThePast;
 
   const otherGProps = isInteractive ? {} : { opacity: "0.3" };
 
@@ -27,10 +37,10 @@ function SvgSmallStar({ position, currentPosition, highlight, x, y, ...rest }) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width={isInteractive && isHovered ? 70 : 50}
-      height={isInteractive && isHovered ? 70 : 50}
-      x={isInteractive && isHovered ? x - 10 : x}
-      y={isInteractive && isHovered ? y - 10 : y}
+      width={displayStatic || (isInteractive && isHovered) ? 70 : 50}
+      height={displayStatic || (isInteractive && isHovered) ? 70 : 50}
+      x={displayStatic || (isInteractive && isHovered) ? x - 10 : x}
+      y={displayStatic || (isInteractive && isHovered) ? y - 10 : y}
       viewBox="0 0 37.5 37.5"
       {...rest}
     >
