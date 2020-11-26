@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import SvgStar from "./SvgStar.jsx";
+import AdventTitle from "./AdventTitle.jsx";
 import ModalContext from "../src/context/ModalContext.js";
 
 // the number of days, which is the number of stars
@@ -76,6 +77,7 @@ function StarBox({ entries: preformattedEntries, ...rest }) {
       viewBox="0 0 1000 1000"
       {...rest}
     >
+      <AdventTitle />
       {starPositions.map(({ position, x, y }) => {
         const entryForPosition = entries[position - 1];
         // console.log(position - 1);

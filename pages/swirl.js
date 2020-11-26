@@ -36,16 +36,13 @@ export default function Swirl({ entries }) {
   console.log("Component Props: ", entries);
 
   return (
-    <div className={(styles.container, styles["gradient-background"])}>
+    <div className={styles.container}>
       <Head>
         <title>Advent with St. Luke's of Logan Square</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={(styles.title, "text-6xl font-bold text-gray-100")}>
-          Advent 2020
-        </h1>
         <div className={styles.spiralBox}>
           <StarBox className={styles.starBox} entries={entries} />
           <Modal isHidden={isHidden} onDismiss={handleModalDismiss} />
