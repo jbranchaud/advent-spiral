@@ -13,7 +13,8 @@ function Modal({ isHidden, onDismiss }) {
   const text = starData["Verse/Activity"] || "";
   const date = starData["originalDate"];
   const dateObj = !!date ? new Date(`${date}T00:00:00.000-06:00`) : Date.now();
-  const videoUrl = starData["Video"];
+  const videoId = starData["Video"];
+  const videoUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto" onClick={onDismiss}>

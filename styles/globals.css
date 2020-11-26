@@ -20,6 +20,10 @@ a {
 @tailwind components;
 @tailwind utilities;
 
-.markdown-paragraph > p {
+.markdown-paragraph p {
   margin-bottom: 20px;
+}
+
+.markdown-paragraph ol {
+  list-style-type: decimal;
 }

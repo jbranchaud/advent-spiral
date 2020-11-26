@@ -84,8 +84,8 @@ function StarBox({ entries: preformattedEntries, ...rest }) {
           <SvgStar
             onClick={() => {
               console.log(`Clicking on Star #${position}`);
-              if (!entryForPosition.featured && !entryForPosition.inThePast)
-                return;
+              // if (!entryForPosition.featured && !entryForPosition.inThePast)
+              //   return;
 
               setIsHidden(false);
               setStarData({ position, ...entryForPosition });
