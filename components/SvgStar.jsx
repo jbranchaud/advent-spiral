@@ -5,7 +5,6 @@ function SvgSmallStar({
   position,
   entry,
   currentPosition,
-  highlight,
   x,
   y,
   displayStatic,

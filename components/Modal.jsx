@@ -60,7 +60,6 @@ Leaving: "ease-in duration-200"
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
               <SvgStar
-                highlight
                 position={1}
                 currentPosition={1}
                 entry={{ featured: true }}

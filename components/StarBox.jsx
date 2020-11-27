@@ -96,7 +96,6 @@ function StarBox({ entries: preformattedEntries, ...rest }) {
             y={y}
             position={position}
             entry={entryForPosition}
-            highlight={position === currentPosition}
             currentPosition={currentPosition}
           />
         );
