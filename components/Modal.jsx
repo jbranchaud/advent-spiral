@@ -49,7 +49,7 @@ Leaving: "ease-in duration-200"
   To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     */}
         <div
-          className="p-2 inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
+          className="p-3 inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-headline"
