@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const defaultValue = {
   isHidden: true,
   starData: {},
-  // today: new Date(Date.now()),
-  today: new Date("2020-12-15"),
+  today: new Date(Date.now()),
+  // today: new Date("2020-12-15"),
 };
 
 const ModalContext = React.createContext(defaultValue);
