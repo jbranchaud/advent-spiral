@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import ModalContext from "../src/context/ModalContext.js";
 import SvgStar from "./SvgStar.jsx";
-import ReactMarkdown from "react-markdown";
 
-function Modal({ isHidden, onDismiss }) {
+function Modal({ isHidden, onDismiss, children, heading }) {
   const { starData } = useContext(ModalContext);
 
   if (isHidden) {
@@ -50,7 +49,7 @@ Leaving: "ease-in duration-200"
   To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     */}
         <div
-          className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
+          className="p-2 inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-headline"
@@ -67,32 +66,15 @@ Leaving: "ease-in duration-200"
                 entry={{ featured: true }}
                 displayStatic
               />
-              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                 <h3
                   className="text-lg leading-6 font-medium text-gray-900"
                   id="modal-headline"
                 >
-                  {Intl.DateTimeFormat("en-US", {
-                    dateStyle: "full",
-                    timeZone: "America/Chicago",
-                  }).format(dateObj)}
+                  {heading}
                 </h3>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    <ReactMarkdown className="markdown-paragraph">
-                      {text.replace(/\n/gi, "  \n")}
-                    </ReactMarkdown>
-                    {videoUrl && (
-                      <iframe
-                        width="560"
-                        height="315"
-                        src={videoUrl}
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                      ></iframe>
-                    )}
-                  </p>
+                  <p className="text-sm text-gray-500">{children}</p>
                 </div>
               </div>
             </div>
