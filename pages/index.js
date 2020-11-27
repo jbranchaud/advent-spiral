@@ -1,66 +1,133 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import cx from "classnames"
+import { useContext } from "react";
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import StarBox from "../components/StarBox.jsx";
+import ActivityModal from "../components/ActivityModal.jsx";
+import ModalContext from "../src/context/ModalContext.js";
+import Airtable from "airtable";
+import cx from "classnames";
 
-export default function Home() {
+export async function getStaticProps(_context) {
+  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
+    "appyEVF7VFjePfZQW"
+  );
+
+  const records = await base("Table 1")
+    .select({
+      fields: ["Date", "Verse/Activity", "Video"],
+      sort: [{ field: "Date", direction: "asc" }],
+    })
+    .firstPage();
+
+  const entries = records.map((record) => record.fields);
+
+  const starPositions = [
+    { position: 27, x: 525, y: 460 },
+    { position: 26, x: 515, y: 550 },
+    { position: 25, x: 420, y: 500 },
+    { position: 24, x: 400, y: 390 },
+    { position: 23, x: 515, y: 320 },
+    { position: 22, x: 650, y: 350 },
+    { position: 21, x: 715, y: 440 },
+    { position: 20, x: 725, y: 575 },
+    { position: 19, x: 650, y: 670 },
+    { position: 18, x: 530, y: 740 },
+    { position: 17, x: 380, y: 720 },
+    { position: 16, x: 260, y: 620 },
+    { position: 15, x: 205, y: 485 },
+    { position: 14, x: 220, y: 325 },
+    { position: 13, x: 325, y: 195 },
+    { position: 12, x: 485, y: 125 },
+    { position: 11, x: 660, y: 135 },
+    { position: 10, x: 805, y: 220 },
+    { position: 9, x: 905, y: 360 },
+    { position: 8, x: 930, y: 520 },
+    { position: 7, x: 880, y: 700 },
+    { position: 6, x: 775, y: 830 },
+    { position: 5, x: 630, y: 910 },
+    { position: 4, x: 440, y: 940 },
+    { position: 3, x: 225, y: 870 },
+    { position: 2, x: 75, y: 725 },
+    { position: 1, x: 5, y: 530 },
+  ];
+
+  const entriesWithStarData = starPositions.map((positionData) => {
+    return { ...positionData, ...entries[positionData.position - 1] };
+  });
+
+  return { props: { entries: entriesWithStarData } };
+}
+
+export default function Swirl({ entries: preformattedEntries }) {
+  const { isHidden, setIsHidden, setStarData, today } = useContext(
+    ModalContext
+  );
+
+  const handleModalDismiss = () => {
+    setIsHidden(true);
+    setStarData({});
+  };
+
+  const entries = preformattedEntries.map((entry) => {
+    // make the date look like 12/25/2020
+    const entryDate = new Date(entry["Date"]);
+    const formattedDate = new Intl.DateTimeFormat("en-US").format(entryDate);
+
+    // metadata for helping the SVG display
+    const featured = entryDate.getTime() === today.getTime();
+    const inThePast = entryDate < today;
+
+    return {
+      ...entry,
+      originalDate: entry["Date"],
+      dateObj: entryDate,
+      ["Date"]: formattedDate,
+      featured,
+      inThePast,
+    };
+  });
+
+  const featuredEntry = entries.find((entry) => entry.featured);
+
+  const openActivityForToday = () => {
+    setIsHidden(false);
+    setStarData(featuredEntry);
+  };
+
+  console.log("Component Props: ", entries);
+
+  const buttonStyles =
+    "m-2 p-2 border-2 border-gray-500 text-gray-500 rounded hover:text-gray-900 hover:border-gray-900 hover:border-4 hover:shadow";
+
   return (
-    <div className={styles.container, styles['gradient-background']}>
+    <div className={styles.container}>
       <Head>
         <title>Advent with St. Luke's of Logan Square</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title, "text-6xl font-bold text-gray-100"}>
-          Advent 2020
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
+        <div className="w-full flex justify-end">
+          <button
+            onClick={() => {
+              alert("Button clicked!");
+            }}
+            className={cx("", buttonStyles)}
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            How Does This Work?
+          </button>
+          <button
+            onClick={openActivityForToday}
+            className={cx("", buttonStyles)}
           >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+            Today's Activity
+          </button>
+        </div>
+        <div className={styles.spiralBox}>
+          <StarBox className={styles.starBox} entries={entries} />
+          <ActivityModal isHidden={isHidden} onDismiss={handleModalDismiss} />
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
-  )
+  );
 }
