@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import StarBox from "../components/StarBox.jsx";
 import ActivityModal from "../components/ActivityModal.jsx";
+import ExplainerModal from "../components/ExplainerModal.jsx";
 import ModalContext from "../src/context/ModalContext.js";
 import Airtable from "airtable";
 import cx from "classnames";
@@ -63,6 +64,12 @@ export default function Swirl({ entries: preformattedEntries }) {
     ModalContext
   );
 
+  const [isExplainerHidden, setIsExplainerHidden] = useState(true);
+
+  const handleExplainerModalDismiss = () => {
+    setIsExplainerHidden(true);
+  };
+
   const handleModalDismiss = () => {
     setIsHidden(true);
     setStarData({});
@@ -110,7 +117,7 @@ export default function Swirl({ entries: preformattedEntries }) {
         <div className="w-full flex justify-end">
           <button
             onClick={() => {
-              alert("Button clicked!");
+              setIsExplainerHidden(false);
             }}
             className={cx("", buttonStyles)}
           >
@@ -126,6 +133,10 @@ export default function Swirl({ entries: preformattedEntries }) {
         <div className={styles.spiralBox}>
           <StarBox className={styles.starBox} entries={entries} />
           <ActivityModal isHidden={isHidden} onDismiss={handleModalDismiss} />
+          <ExplainerModal
+            isHidden={isExplainerHidden}
+            onDismiss={handleExplainerModalDismiss}
+          />
         </div>
       </main>
     </div>
