@@ -1,15 +1,7 @@
 import React, { useEffect } from "react";
 import useHover from "../src/hooks/useHover.js";
 
-function SvgSmallStar({
-  position,
-  entry,
-  currentPosition,
-  x,
-  y,
-  displayStatic,
-  ...rest
-}) {
+function SvgSmallStar({ position, entry, x, y, displayStatic, ...rest }) {
   console.log(entry);
   const deemphasisProps = entry.featured
     ? {}

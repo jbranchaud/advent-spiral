@@ -68,8 +68,6 @@ function StarBox({ entries: preformattedEntries, ...rest }) {
 
   console.log(entries);
 
-  const currentPosition = 20;
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +94,6 @@ function StarBox({ entries: preformattedEntries, ...rest }) {
             y={y}
             position={position}
             entry={entryForPosition}
-            currentPosition={currentPosition}
           />
         );
       })}

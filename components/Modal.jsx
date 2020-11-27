@@ -59,12 +59,7 @@ Leaving: "ease-in duration-200"
         >
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
-              <SvgStar
-                position={1}
-                currentPosition={1}
-                entry={{ featured: true }}
-                displayStatic
-              />
+              <SvgStar position={1} entry={{ featured: true }} displayStatic />
               <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                 <h3
                   className="text-lg leading-6 font-medium text-gray-900"
