@@ -107,11 +107,25 @@ export default function Swirl({ entries: preformattedEntries }) {
   const buttonStyles =
     "m-2 p-2 border-2 border-gray-500 text-gray-500 rounded hover:text-gray-900 hover:border-gray-900 hover:border-4 hover:shadow";
 
+  const meta = {
+    title: "Advent Spiral - St. Luke's Lutheran Church of Logan Square",
+    description:
+      "Celebrate each day of Advent in 2020 with St. Luke's through this virtual Advent Spiral",
+  };
+
   return (
     <div className={styles.container}>
       <Head>
         <title>Advent with St. Luke's of Logan Square</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content={meta.title} />
+        <meta
+          property="og:image"
+          content="https://advent-spiral.stlukesls.org/social-card.png"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="twitter:card" content="summary_large_image" />
       </Head>
 
       <main className={styles.main}>
