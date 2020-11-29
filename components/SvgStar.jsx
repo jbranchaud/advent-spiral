@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useHover from "../src/hooks/useHover.js";
 
 function SvgSmallStar({ position, entry, x, y, displayStatic, ...rest }) {
-  console.log(entry);
   const deemphasisProps = entry.featured
     ? {}
     : {
@@ -15,14 +14,6 @@ function SvgSmallStar({ position, entry, x, y, displayStatic, ...rest }) {
   const otherGProps = isInteractive ? {} : { opacity: "0.3" };
 
   const [hoverRef, isHovered] = useHover();
-
-  useEffect(() => {
-    if (isHovered) {
-      console.log("You are hovered right now!");
-    } else {
-      console.log("You are NOT hovered right now!");
-    }
-  }, [isHovered]);
 
   return (
     <svg
