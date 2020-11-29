@@ -114,21 +114,28 @@ export default function Swirl({ entries: preformattedEntries }) {
       </Head>
 
       <main className={styles.main}>
-        <div className="w-full flex justify-end">
-          <button
-            onClick={() => {
-              setIsExplainerHidden(false);
-            }}
-            className={cx("", buttonStyles)}
-          >
-            How Does This Work?
-          </button>
-          <button
-            onClick={openActivityForToday}
-            className={cx("", buttonStyles)}
-          >
-            Today's Activity
-          </button>
+        <div className="w-full flex flex-col sm:flex-row justify-between items-center px-2">
+          <h1 className="p-2 text-gray-700">
+            <a href="https://stlukesls.org">
+              St. Luke's Lutheran Church of Logan Square
+            </a>
+          </h1>
+          <div>
+            <button
+              onClick={() => {
+                setIsExplainerHidden(false);
+              }}
+              className={cx("", buttonStyles)}
+            >
+              How Does This Work?
+            </button>
+            <button
+              onClick={openActivityForToday}
+              className={cx("", buttonStyles)}
+            >
+              Today's Activity
+            </button>
+          </div>
         </div>
         <div className={styles.spiralBox}>
           <StarBox className={styles.starBox} entries={entries} />
