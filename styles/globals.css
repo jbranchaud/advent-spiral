@@ -28,6 +28,10 @@ a {
   list-style-type: decimal;
 }
 
+.markdown-paragraph a {
+  text-decoration: underline;
+}
+
 .iframe-container {
   overflow: hidden;
   /* 16:9 aspect ratio */
