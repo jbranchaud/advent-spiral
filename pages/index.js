@@ -94,11 +94,12 @@ export default function Swirl({ entries: preformattedEntries }) {
     };
   });
 
+  const firstEntry = entries.find((entry) => entry.position === 1);
   const featuredEntry = entries.find((entry) => entry.featured);
 
   const openActivityForToday = () => {
     setIsHidden(false);
-    setStarData(featuredEntry);
+    setStarData(featuredEntry || firstEntry);
   };
 
   console.log("Component Props: ", entries);
