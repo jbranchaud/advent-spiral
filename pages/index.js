@@ -75,13 +75,17 @@ export default function Swirl({ entries: preformattedEntries }) {
     setStarData({});
   };
 
+  const dateStringToCentralTimeZone = (dateString) => {
+    return new Date(`${dateString}T00:00:00.000-06:00`);
+  };
+
   const entries = preformattedEntries.map((entry) => {
     // make the date look like 12/25/2020
-    const entryDate = new Date(entry["Date"]);
+    const entryDate = dateStringToCentralTimeZone(entry["Date"]);
     const formattedDate = new Intl.DateTimeFormat("en-US").format(entryDate);
 
     // metadata for helping the SVG display
-    const featured = entryDate.getTime() === today.getTime();
+    const featured = entryDate.getDate() === today.getDate();
     const inThePast = entryDate < today;
 
     return {
