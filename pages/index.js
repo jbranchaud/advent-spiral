@@ -130,6 +130,12 @@ export default function Swirl({ entries: preformattedEntries }) {
         <meta property="og:type" content="website" />
         <meta property="og:description" content={meta.description} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta
+          name="twitter:image"
+          content="https://advent-spiral.stlukesls.org/social-card.png"
+        />
       </Head>
 
       <main className={styles.main}>
