@@ -129,7 +129,7 @@ export default function Swirl({ entries: preformattedEntries }) {
         />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={meta.description} />
-        <meta property="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <main className={styles.main}>
